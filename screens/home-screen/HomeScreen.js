@@ -1,6 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import { Header } from "react-native-elements";
+import GistList from "../../components/gist-list/GistList";
 
 function HomeScreen({navigation}) {
     return (
@@ -8,6 +9,8 @@ function HomeScreen({navigation}) {
             <Header
                 leftComponent={{icon: 'menu', color: '#fff', onPress: () => navigation.toggleDrawer()}}
             />
+
+            <GistList />
         </View>
     )
 }
