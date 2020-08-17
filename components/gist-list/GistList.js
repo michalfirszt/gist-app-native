@@ -37,7 +37,7 @@ class GistList extends Component {
         return this.state.gists.map(gist => {
             return (
                 <View key={gist.id}>
-                    <GistCard gist={gist} />
+                    <GistCard gist={gist} navigation={this.props.navigation} />
                 </View>
             )
         })

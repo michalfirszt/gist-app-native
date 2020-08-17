@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FlatList, Text } from "react-native";
-import { Card } from "react-native-elements";
+import { Button, Card } from "react-native-elements";
 
 class GistCard extends Component {
     constructor(props) {
@@ -33,6 +33,12 @@ class GistCard extends Component {
                         },
                     ]}
                     renderItem={({item}) => this.renderItem(item)}
+                />
+                <Button
+                    title="Show"
+                    onPress={() => this.props.navigation.navigate('Gist', {
+                        gist: this.props.gist,
+                    })}
                 />
             </Card>
         )
