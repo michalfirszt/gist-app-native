@@ -1,17 +1,16 @@
 import React from "react";
-import { View } from "react-native";
-import { Header } from "react-native-elements";
-import GistList from "../../components/gist-list/GistList";
+import { createStackNavigator } from "@react-navigation/stack";
+import GistsScreen from "../gists-screen/GistsScreen";
+import GistScreen from "../gist-screen/GistScreen";
 
-function HomeScreen({navigation}) {
+function HomeScreen() {
+    const Stack = createStackNavigator();
+
     return (
-        <View>
-            <Header
-                leftComponent={{icon: 'menu', color: '#fff', onPress: () => navigation.toggleDrawer()}}
-            />
-
-            <GistList />
-        </View>
+        <Stack.Navigator initialRouteName="Gists" screenOptions={{headerShown: false}} >
+            <Stack.Screen name="Gists" component={GistsScreen} options={{title: 'Gists'}} />
+            <Stack.Screen name="Gist" component={GistScreen} options={{title: 'Gist'}} />
+        </Stack.Navigator>
     )
 }
 
