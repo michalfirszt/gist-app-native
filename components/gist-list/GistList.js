@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, SafeAreaView, ScrollView } from "react-native";
+import { ActivityIndicator, View, SafeAreaView, ScrollView } from "react-native";
 import Constants from "expo-constants";
 import axios from "axios";
 import GistCard from "../gist-card/GistCard";
@@ -10,6 +10,7 @@ class GistList extends Component {
 
         this.state = {
             gists: [],
+            loading: false,
             client: axios.create({
                 baseURL: 'https://api.github.com/',
                 responseType: 'json',
@@ -25,10 +26,15 @@ class GistList extends Component {
     }
 
     getGists() {
+        this.setState({
+            loading: true,
+        })
+
         this.state.client.get('gists')
             .then(response => {
                 this.setState({
                     gists: response.data,
+                    loading: false,
                 });
             })
     }
@@ -51,6 +57,7 @@ class GistList extends Component {
                         { this.selectGists() }
                     </ScrollView>
                 </SafeAreaView>
+                <ActivityIndicator size="large" animating={this.state.loading} />
             </View>
         )
     }
