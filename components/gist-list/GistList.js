@@ -3,6 +3,7 @@ import { ActivityIndicator, View, SafeAreaView, ScrollView } from "react-native"
 import Constants from "expo-constants";
 import axios from "axios";
 import GistCard from "../gist-card/GistCard";
+import { StatusBar } from 'expo-status-bar';
 
 class GistList extends Component {
     constructor(props) {
@@ -58,6 +59,7 @@ class GistList extends Component {
                     </ScrollView>
                 </SafeAreaView>
                 <ActivityIndicator size="large" animating={this.state.loading} />
+                <StatusBar style="auto" />
             </View>
         )
     }
