@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, SafeAreaView, ScrollView } from "react-native";
 import File from "../file/File";
+import CommentList from "../comment-list/CommentList";
 
 class GistDetails extends Component {
     constructor(props) {
@@ -47,6 +48,7 @@ class GistDetails extends Component {
                 <SafeAreaView>
                     <ScrollView>
                         { this.gistFiles() }
+                        <CommentList id={this.props.gist.id} />
                     </ScrollView>
                 </SafeAreaView>
             </View>
