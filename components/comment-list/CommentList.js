@@ -3,6 +3,7 @@ import { ActivityIndicator, View } from "react-native";
 import axios from "axios";
 import Constants from "expo-constants";
 import Comment from "../comment/Comment";
+import CommentForm from "../comment-form/CommentForm";
 
 class CommentList extends Component {
     constructor(props) {
@@ -19,6 +20,8 @@ class CommentList extends Component {
                 }
             }),
         };
+
+        this.addNewComment = this.addNewComment.bind(this);
     }
 
     componentDidMount() {
@@ -47,11 +50,21 @@ class CommentList extends Component {
         })
     }
 
+    addNewComment(comment) {
+        let newCommentList = this.state.comments;
+        newCommentList.push(comment);
+
+        this.setState({
+            comments: newCommentList,
+        });
+    }
+
     render() {
         return (
             <View>
                 <ActivityIndicator size="large" animating={this.state.loading} />
                 { this.selectComments() }
+                <CommentForm id={this.props.id} addNewComment={this.addNewComment} />
             </View>
         )
     }
