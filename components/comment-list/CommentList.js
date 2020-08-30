@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ActivityIndicator, View } from "react-native";
+import { ActivityIndicator, View, SafeAreaView, ScrollView } from "react-native";
 import axios from "axios";
 import Constants from "expo-constants";
 import Comment from "../comment/Comment";
@@ -63,8 +63,12 @@ class CommentList extends Component {
         return (
             <View>
                 <ActivityIndicator size="large" animating={this.state.loading} />
-                { this.selectComments() }
-                <CommentForm id={this.props.id} addNewComment={this.addNewComment} />
+                <SafeAreaView>
+                    <ScrollView>
+                        <CommentForm id={this.props.id} addNewComment={this.addNewComment} />
+                        { this.selectComments() }
+                    </ScrollView>
+                </SafeAreaView>
             </View>
         )
     }
