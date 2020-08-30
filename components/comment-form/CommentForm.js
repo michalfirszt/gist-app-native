@@ -24,36 +24,35 @@ class CommentForm extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event) {
+    handleChange(commentBody) {
         this.setState({
-            [event.target.name]: event.target.value,
+            body: commentBody,
         })
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
-
+    handleSubmit() {
         if (this.state.body.length > 0) {
             this.state.client.post('gists/' + this.props.id + '/comments', {
                 body: this.state.body,
             })
             .then(response => {
                 this.props.addNewComment(response.data);
-            })
 
-            this.setState({
-                body: '',
-            });
+                this.setState({
+                    body: '',
+                });
+            })
         }
     }
 
     render() {
         return (
             <View>
-                <Input placeholder="Type comment" name="body" onChange={this.handleChange} />
+                <Input placeholder="Type comment" name="body" defaultValue={this.state.body} onChangeText={this.handleChange} />
                 <Button
+                    disabled={this.state.body.length === 0}
                     title="Comment"
-                    onClick={this.handleSubmit}
+                    onPress={this.handleSubmit}
                     buttonStyle={{
                         alignItems: 'center',
                         marginLeft: 'auto',
