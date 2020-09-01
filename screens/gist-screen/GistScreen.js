@@ -1,21 +1,17 @@
 import React from "react";
-import { View } from "react-native";
-import { Header } from "react-native-elements";
-import GistDetails from "../../components/gist-details/GistDetails";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import FilesScreen from "../files-screen/FilesScreen";
+import CommentsScreen from "../comments-screen/CommentsScreen";
 
 function GistScreen({route, navigation}) {
     const { gist } = route.params;
+    const Tab = createBottomTabNavigator();
 
     return (
-        <View>
-            <Header
-                leftComponent={{icon: 'arrow-back', color: '#fff', onPress: () => navigation.goBack()}}
-            />
-
-            <View>
-                <GistDetails gist={gist} />
-            </View>
-        </View>
+        <Tab.Navigator>
+            <Tab.Screen name="Files" children={() => <FilesScreen gist={gist} navigation={navigation} />} />
+            <Tab.Screen name="Comments" children={() => <CommentsScreen gist={gist} navigation={navigation} />} />
+        </Tab.Navigator>
     )
 }
 
