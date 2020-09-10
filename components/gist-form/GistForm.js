@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, SafeAreaView, ScrollView } from "react-native";
+import { ActivityIndicator, View, SafeAreaView, ScrollView } from "react-native";
 import { Input, Button } from "react-native-elements";
 import axios from "axios";
 import Constants from "expo-constants";
@@ -29,6 +29,7 @@ class GistForm extends Component {
         this.addNewFile = this.addNewFile.bind(this);
         this.removeFile = this.removeFile.bind(this);
         this.updateFile = this.updateFile.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -100,6 +101,33 @@ class GistForm extends Component {
         })
     }
 
+    handleSubmit() {
+        this.setState({
+            loading: true,
+        });
+
+        let files = {};
+
+        this.state.files.forEach(file => {
+            files[file.filename] = {
+                filename: file.filename,
+                content: file.content,
+            }
+        });
+
+        this.state.client.post('gists', {
+            description: this.state.description,
+            public: this.state.public,
+            files: files,
+        }).then(response => {
+            this.setState({
+                loading: false,
+            });
+
+            alert('Gist created successfully');
+        })
+    }
+
     render() {
         return (
             <SafeAreaView>
@@ -114,6 +142,13 @@ class GistForm extends Component {
                                onChangeText={(text) => this.handleChange('description', text)} />
                         <View>
                             { this.selectFiles() }
+                        </View>
+                        <View style={styles.createButton}>
+                            { this.state.loading ? (
+                                <ActivityIndicator size="large" animating={this.state.loading} />
+                            ) : (
+                                <Button title="Create" onPress={this.handleSubmit} />
+                            )}
                         </View>
                     </View>
                 </ScrollView>

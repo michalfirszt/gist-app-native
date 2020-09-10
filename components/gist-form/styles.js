@@ -15,6 +15,9 @@ const styles = StyleSheet.create({
         marginLeft: 'auto',
         marginRight: 'auto',
         width: '60%',
+    },
+    createButton: {
+        margin: 15
     }
 });
 
